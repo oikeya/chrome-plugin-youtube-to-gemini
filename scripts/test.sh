@@ -54,5 +54,8 @@ run_browser_test \
 run_browser_test \
   "gemini" \
   "file://$root/tests/fixtures/gemini-smoke.html?yt2gemini=smoke-request"
+run_browser_test \
+  "gemini-fallback" \
+  "file://$root/tests/fixtures/gemini-fallback-smoke.html?yt2gemini=fallback-request"
 
 echo "All automated tests passed."

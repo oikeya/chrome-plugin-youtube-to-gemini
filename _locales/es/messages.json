@@ -19,8 +19,8 @@
   "autoSubmitWarning": { "message": "Al activarlo, al pulsar Resumir se enviarán automáticamente a Gemini el título, la URL y tu prompt. Está desactivado de forma predeterminada." },
   "save": { "message": "Guardar" },
   "saved": { "message": "Guardado" },
-  "inputNotFound": { "message": "No se encontró el campo de entrada. Pega manualmente el prompt copiado." },
+  "inputNotFound": { "message": "No se encontró el campo de entrada. El prompt se muestra abajo y no se copió automáticamente." },
   "promptInserted": { "message": "Prompt insertado. Revísalo y pulsa Enviar." },
   "sendNotFound": { "message": "Prompt insertado, pero no se encontró Enviar. Púlsalo manualmente." },
-  "automationFailed": { "message": "La automatización falló. Pega manualmente el prompt copiado." }
+  "automationFailed": { "message": "La automatización falló. El prompt se muestra abajo y no se copió automáticamente." }
 }

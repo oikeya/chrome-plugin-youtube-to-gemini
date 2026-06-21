@@ -14,6 +14,15 @@ def load_json(path: Path):
 manifest = load_json(ROOT / "manifest.json")
 assert manifest["manifest_version"] == 3
 assert manifest["default_locale"] == "en"
+assert "clipboardWrite" not in manifest.get("permissions", []), (
+    "clipboardWrite must remain disabled so prompts are not copied automatically"
+)
+
+for source_name in ("content.js", "gemini.js", "popup.js"):
+    source = (ROOT / source_name).read_text(encoding="utf-8")
+    assert "navigator.clipboard" not in source, (
+        f"{source_name}: automatic Clipboard API use is prohibited"
+    )
 
 referenced_files = []
 for content_script in manifest["content_scripts"]:

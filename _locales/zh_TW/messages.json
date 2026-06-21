@@ -19,8 +19,8 @@
   "autoSubmitWarning": { "message": "啟用後，點擊「摘要」會自動將影片標題、網址和你的提示詞傳送到 Gemini。預設為關閉。" },
   "save": { "message": "儲存" },
   "saved": { "message": "已儲存" },
-  "inputNotFound": { "message": "找不到輸入框。請手動貼上已複製的提示詞。" },
+  "inputNotFound": { "message": "找不到輸入框。提示詞顯示於下方，且未自動複製到剪貼簿。" },
   "promptInserted": { "message": "已填入提示詞。請檢查後點擊傳送。" },
   "sendNotFound": { "message": "已填入提示詞，但找不到傳送按鈕。請手動傳送。" },
-  "automationFailed": { "message": "自動操作失敗。請手動貼上已複製的提示詞。" }
+  "automationFailed": { "message": "自動操作失敗。提示詞顯示於下方，且未自動複製到剪貼簿。" }
 }

@@ -109,19 +109,86 @@
     setTimeout(() => notice.remove(), 5000);
   }
 
+  function showPromptFallback(message, prompt) {
+    if (!document.body) {
+      setTimeout(() => showPromptFallback(message, prompt), 200);
+      return;
+    }
+
+    const panel = document.createElement('div');
+    panel.dataset.yt2geminiFallback = '';
+    Object.assign(panel.style, {
+      position: 'fixed',
+      zIndex: '2147483647',
+      right: '20px',
+      bottom: '20px',
+      width: 'min(520px, calc(100vw - 40px))',
+      padding: '16px',
+      borderRadius: '12px',
+      color: '#fff',
+      background: 'rgba(32, 33, 36, .97)',
+      boxShadow: '0 4px 18px rgba(0, 0, 0, .3)',
+      font: '14px/1.4 Arial, sans-serif'
+    });
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.textContent = '×';
+    closeButton.setAttribute('aria-label', 'Close');
+    Object.assign(closeButton.style, {
+      position: 'absolute',
+      top: '8px',
+      right: '10px',
+      border: '0',
+      color: '#fff',
+      background: 'transparent',
+      font: '24px/1 Arial, sans-serif',
+      cursor: 'pointer'
+    });
+    closeButton.addEventListener('click', () => panel.remove());
+
+    const explanation = document.createElement('p');
+    explanation.textContent = message;
+    explanation.style.margin = '0 28px 12px 0';
+
+    const promptField = document.createElement('textarea');
+    promptField.readOnly = true;
+    promptField.value = prompt;
+    promptField.setAttribute('aria-label', 'Prompt');
+    Object.assign(promptField.style, {
+      boxSizing: 'border-box',
+      width: '100%',
+      minHeight: '160px',
+      padding: '10px',
+      border: '1px solid #777',
+      borderRadius: '8px',
+      color: '#202124',
+      background: '#fff',
+      font: '13px/1.4 monospace',
+      resize: 'vertical'
+    });
+
+    panel.append(closeButton, explanation, promptField);
+    document.body.appendChild(panel);
+  }
+
+  let activePrompt = '';
+
   async function run() {
     const request = await readRequest();
     if (!request) return;
+    activePrompt = request.prompt;
     const message = (key) => chrome.i18n.getMessage(key);
 
     const editor = await waitForElement(INPUT_SELECTORS);
     if (!editor) {
       await chrome.storage.local.remove(storageKey);
-      showNotice(message('inputNotFound'));
+      showPromptFallback(message('inputNotFound'), request.prompt);
       return;
     }
 
     insertPrompt(editor, request.prompt);
+    activePrompt = '';
     await chrome.storage.local.remove(storageKey);
 
     const cleanUrl = new URL(location.href);
@@ -144,6 +211,10 @@
 
   run().catch(async () => {
     await chrome.storage.local.remove(storageKey);
-    showNotice(chrome.i18n.getMessage('automationFailed'));
+    if (activePrompt) {
+      showPromptFallback(chrome.i18n.getMessage('automationFailed'), activePrompt);
+    } else {
+      showNotice(chrome.i18n.getMessage('automationFailed'));
+    }
   });
 })();

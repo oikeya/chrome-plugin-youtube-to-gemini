@@ -24,7 +24,7 @@ Features:
 - Supports a customizable prompt with `{language}`, `{title}`, and `{url}` placeholders.
 - Fills the Gemini prompt for review before sending by default.
 - Optional automatic sending is disabled by default and must be explicitly enabled in settings.
-- Copies the prompt to the clipboard as a fallback if Gemini's interface changes.
+- Does not copy prompts to the system clipboard; if automatic insertion fails, the prompt is shown in a read-only field.
 
 Privacy:
 

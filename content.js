@@ -170,11 +170,6 @@
 
     const prompt = buildPrompt(video);
 
-    // Gemini側への自動入力が失敗した場合にも貼り付けられるようコピーする。
-    navigator.clipboard.writeText(prompt).catch(() => {
-      // Clipboardが拒否されてもGeminiを開く処理は続ける。
-    });
-
     const requestId = crypto.randomUUID();
     chrome.storage.local.set({
       [`geminiRequest:${requestId}`]: {

@@ -22,17 +22,13 @@ A Google account may be required by Gemini. No separate test account, paid servi
 
 Stores the user's summary-language, custom-prompt, and opt-in automatic-send settings. It also stores the assembled prompt briefly in local extension storage to hand it from the user-selected YouTube tab to the newly opened Gemini tab. Pending prompts are removed after insertion or expiration.
 
-### `clipboardWrite`
-
-Copies the assembled prompt to the clipboard only after the user clicks Summarize. This is a fallback so the user can paste it if a Gemini interface change prevents automatic insertion.
-
 ### Host access: `https://www.youtube.com/*`
 
 Required to add the visible Summarize button and, after that button is clicked, read only the selected video's public title and URL.
 
 ### Host access: `https://gemini.google.com/*`
 
-Required to insert the user-requested prompt into Gemini. The Send button is activated only when the user has explicitly enabled the automatic-send option, which is off by default.
+Required to insert the user-requested prompt into Gemini. The Send button is activated only when the user has explicitly enabled the automatic-send option, which is off by default. If the input cannot be found, the prompt is displayed in a read-only field on the Gemini page and is not copied to the system clipboard.
 
 ## Remote code
 

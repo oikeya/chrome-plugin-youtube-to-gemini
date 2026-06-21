@@ -19,8 +19,8 @@
   "autoSubmitWarning": { "message": "启用后，点击“总结”会自动将视频标题、网址和你的提示词发送到 Gemini。默认关闭。" },
   "save": { "message": "保存" },
   "saved": { "message": "已保存" },
-  "inputNotFound": { "message": "未找到输入框。请手动粘贴已复制的提示词。" },
+  "inputNotFound": { "message": "未找到输入框。提示词显示在下方，且未自动复制到剪贴板。" },
   "promptInserted": { "message": "已填入提示词。请检查后点击发送。" },
   "sendNotFound": { "message": "已填入提示词，但未找到发送按钮。请手动发送。" },
-  "automationFailed": { "message": "自动操作失败。请手动粘贴已复制的提示词。" }
+  "automationFailed": { "message": "自动操作失败。提示词显示在下方，且未自动复制到剪贴板。" }
 }

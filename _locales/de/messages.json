@@ -19,8 +19,8 @@
   "autoSubmitWarning": { "message": "Wenn aktiviert, werden nach einem Klick auf Zusammenfassen der Videotitel, die URL und dein Prompt automatisch an Gemini gesendet. Standardmäßig deaktiviert." },
   "save": { "message": "Speichern" },
   "saved": { "message": "Gespeichert" },
-  "inputNotFound": { "message": "Eingabefeld nicht gefunden. Füge den kopierten Prompt manuell ein." },
+  "inputNotFound": { "message": "Eingabefeld nicht gefunden. Der Prompt wird unten angezeigt und wurde nicht automatisch kopiert." },
   "promptInserted": { "message": "Prompt eingefügt. Prüfe ihn und klicke dann auf Senden." },
   "sendNotFound": { "message": "Prompt eingefügt, aber Senden wurde nicht gefunden. Bitte manuell senden." },
-  "automationFailed": { "message": "Automatisierung fehlgeschlagen. Füge den kopierten Prompt manuell ein." }
+  "automationFailed": { "message": "Automatisierung fehlgeschlagen. Der Prompt wird unten angezeigt und wurde nicht automatisch kopiert." }
 }

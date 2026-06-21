@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>gemini.js fallback smoke test</title>
+    <style>
+      textarea { display: block; width: 200px; height: 40px; }
+    </style>
+    <script>
+      window.testState = { removed: [] };
+      window.chrome = {
+        i18n: {
+          getMessage: (key) => ({
+            automationFailed: "Automation failed without copying the prompt."
+          })[key] || key
+        },
+        storage: {
+          local: {
+            get: async (key) => ({
+              [key]: {
+                prompt: "Fallback prompt with a private video URL",
+                autoSubmit: false,
+                createdAt: Date.now()
+              }
+            }),
+            remove: async (key) => { window.testState.removed.push(key); }
+          }
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <textarea id="broken-editor" aria-label="Prompt"></textarea>
+    <div id="test-result">WAIT</div>
+    <pre id="test-error"></pre>
+    <script>
+      document.querySelector("#broken-editor").focus = () => {
+        throw new Error("Simulated Gemini editor failure");
+      };
+    </script>
+    <script src="../../gemini.js"></script>
+    <script>
+      setTimeout(() => {
+        try {
+          const fallback = document.querySelector("[data-yt2gemini-fallback]");
+          if (!fallback) throw new Error("Fallback panel was not displayed");
+          const promptField = fallback.querySelector("textarea");
+          if (promptField.value !== "Fallback prompt with a private video URL") {
+            throw new Error("Fallback panel did not preserve the prompt");
+          }
+          if (!promptField.readOnly) throw new Error("Fallback prompt is not read-only");
+          if ("clipboard" in window.testState) {
+            throw new Error("Fallback attempted to use the clipboard");
+          }
+          if (!window.testState.removed.includes("geminiRequest:fallback-request")) {
+            throw new Error("Failed request was not removed from storage");
+          }
+          document.querySelector("#test-result").textContent = "PASS";
+        } catch (error) {
+          document.querySelector("#test-result").textContent = "FAIL";
+          document.querySelector("#test-error").textContent = error.stack || error.message;
+        }
+      }, 200);
+    </script>
+  </body>
+</html>

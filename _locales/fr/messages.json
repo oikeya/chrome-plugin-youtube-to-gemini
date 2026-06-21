@@ -19,8 +19,8 @@
   "autoSubmitWarning": { "message": "Si cette option est activée, cliquer sur Résumer envoie automatiquement à Gemini le titre, l’URL et votre prompt. Désactivée par défaut." },
   "save": { "message": "Enregistrer" },
   "saved": { "message": "Enregistré" },
-  "inputNotFound": { "message": "Champ de saisie introuvable. Collez manuellement le prompt copié." },
+  "inputNotFound": { "message": "Champ de saisie introuvable. Le prompt s’affiche ci-dessous et n’a pas été copié automatiquement." },
   "promptInserted": { "message": "Prompt inséré. Vérifiez-le, puis cliquez sur Envoyer." },
   "sendNotFound": { "message": "Prompt inséré, mais le bouton Envoyer est introuvable. Cliquez dessus manuellement." },
-  "automationFailed": { "message": "Échec de l’automatisation. Collez manuellement le prompt copié." }
+  "automationFailed": { "message": "Échec de l’automatisation. Le prompt s’affiche ci-dessous et n’a pas été copié automatiquement." }
 }

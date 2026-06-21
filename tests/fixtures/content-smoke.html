@@ -23,12 +23,6 @@
           onChanged: { addListener: () => {} }
         }
       };
-      Object.defineProperty(navigator, "clipboard", {
-        configurable: true,
-        value: {
-          writeText: async (value) => { window.testState.clipboard = value; }
-        }
-      });
       window.open = (url, target, features) => {
         window.testState.opened = { url, target, features };
       };
@@ -67,9 +61,6 @@
           ].join("\n");
           if (request.prompt !== expectedPrompt) throw new Error("Prompt does not match settings");
           if (request.autoSubmit !== true) throw new Error("autoSubmit was not passed");
-          if (window.testState.clipboard !== expectedPrompt) {
-            throw new Error("Prompt was not copied to clipboard");
-          }
           if (!window.testState.opened?.url.includes("yt2gemini=")) {
             throw new Error("Gemini request URL was not opened");
           }

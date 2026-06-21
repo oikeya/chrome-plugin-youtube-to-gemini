@@ -19,8 +19,8 @@
   "autoSubmitWarning": { "message": "有効にすると、「要約」を押した動画のタイトル、URL、設定したプロンプトがGeminiへ自動送信されます。初期状態では無効です。" },
   "save": { "message": "保存" },
   "saved": { "message": "保存しました" },
-  "inputNotFound": { "message": "入力欄を検出できませんでした。コピー済みの指示を貼り付けてください。" },
+  "inputNotFound": { "message": "入力欄を検出できませんでした。プロンプトを下に表示します。クリップボードへは自動コピーしていません。" },
   "promptInserted": { "message": "要約指示を入力しました。内容を確認して送信してください。" },
   "sendNotFound": { "message": "要約指示を入力しました。送信ボタンを押してください。" },
-  "automationFailed": { "message": "自動処理に失敗しました。コピー済みの指示を貼り付けてください。" }
+  "automationFailed": { "message": "自動処理に失敗しました。プロンプトを下に表示します。クリップボードへは自動コピーしていません。" }
 }

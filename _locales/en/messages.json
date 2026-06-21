@@ -19,8 +19,8 @@
   "autoSubmitWarning": { "message": "When enabled, clicking Summarize automatically sends the video title, URL, and your prompt to Gemini. Disabled by default." },
   "save": { "message": "Save" },
   "saved": { "message": "Saved" },
-  "inputNotFound": { "message": "Could not find the input. Paste the copied prompt manually." },
+  "inputNotFound": { "message": "Could not find the input. The prompt is shown below and was not copied automatically." },
   "promptInserted": { "message": "Prompt inserted. Review it, then press Send." },
   "sendNotFound": { "message": "Prompt inserted, but Send could not be found. Press it manually." },
-  "automationFailed": { "message": "Automation failed. Paste the copied prompt manually." }
+  "automationFailed": { "message": "Automation failed. The prompt is shown below and was not copied automatically." }
 }
