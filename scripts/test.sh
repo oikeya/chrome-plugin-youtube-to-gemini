@@ -22,7 +22,28 @@ else
 fi
 
 tmp_dir="$(mktemp -d)"
-trap 'rm -rf "$tmp_dir"' EXIT
+server_port="$((20000 + $$ % 20000))"
+python3 -m http.server "$server_port" \
+  --bind 127.0.0.1 \
+  --directory "$root" \
+  >"$tmp_dir/http-server.log" 2>&1 &
+server_pid="$!"
+trap 'kill "$server_pid" 2>/dev/null || true; rm -rf "$tmp_dir"' EXIT
+
+server_ready=false
+for _ in {1..50}; do
+  if curl --fail --silent "http://127.0.0.1:$server_port/tests/fixtures/content-smoke.html" \
+      >/dev/null; then
+    server_ready=true
+    break
+  fi
+  sleep 0.1
+done
+if [[ "$server_ready" != true ]]; then
+  echo "Test HTTP server failed to start." >&2
+  sed -n '1,120p' "$tmp_dir/http-server.log" >&2
+  exit 1
+fi
 
 run_browser_test() {
   local name="$1"
@@ -56,12 +77,12 @@ run_browser_test() {
 
 run_browser_test \
   "content" \
-  "file://$root/tests/fixtures/content-smoke.html"
+  "http://127.0.0.1:$server_port/tests/fixtures/content-smoke.html"
 run_browser_test \
   "gemini" \
-  "file://$root/tests/fixtures/gemini-smoke.html?yt2gemini=smoke-request"
+  "http://127.0.0.1:$server_port/tests/fixtures/gemini-smoke.html?yt2gemini=smoke-request"
 run_browser_test \
   "gemini-fallback" \
-  "file://$root/tests/fixtures/gemini-fallback-smoke.html?yt2gemini=fallback-request"
+  "http://127.0.0.1:$server_port/tests/fixtures/gemini-fallback-smoke.html?yt2gemini=fallback-request"
 
 echo "All automated tests passed."
