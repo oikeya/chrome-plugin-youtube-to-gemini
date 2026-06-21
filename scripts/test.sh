@@ -66,9 +66,9 @@ run_browser_test() {
     exit 1
   fi
 
-  if ! rg -q '<div id="test-result">PASS</div>' "$output"; then
+  if ! grep -Fq '<div id="test-result">PASS</div>' "$output"; then
     echo "$name browser test failed." >&2
-    rg -n 'test-result|test-error' "$output" >&2 || true
+    grep -nE 'test-result|test-error' "$output" >&2 || true
     sed -n '1,120p' "$tmp_dir/$name.log" >&2
     exit 1
   fi
