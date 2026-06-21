@@ -29,15 +29,21 @@ run_browser_test() {
   local url="$2"
   local output="$tmp_dir/$name.html"
 
-  "$chrome" \
-    --headless=new \
-    --no-sandbox \
-    --disable-gpu \
-    --disable-dev-shm-usage \
-    --user-data-dir="$tmp_dir/profile-$name" \
-    --virtual-time-budget=1000 \
-    --dump-dom \
-    "$url" >"$output" 2>"$tmp_dir/$name.log"
+  if ! "$chrome" \
+      --headless=new \
+      --no-sandbox \
+      --disable-gpu \
+      --disable-dev-shm-usage \
+      --no-first-run \
+      --no-default-browser-check \
+      --user-data-dir="$tmp_dir/profile-$name" \
+      --virtual-time-budget=5000 \
+      --dump-dom \
+      "$url" >"$output" 2>"$tmp_dir/$name.log"; then
+    echo "$name browser failed to start." >&2
+    sed -n '1,160p' "$tmp_dir/$name.log" >&2
+    exit 1
+  fi
 
   if ! rg -q '<div id="test-result">PASS</div>' "$output"; then
     echo "$name browser test failed." >&2
