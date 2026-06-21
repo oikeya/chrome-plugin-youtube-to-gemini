@@ -1,0 +1,26 @@
+:root { color-scheme: light dark; }
+body { margin: 0; width: 370px; background: #fff; color: #202124; font: 14px/1.45 Arial, sans-serif; }
+main { padding: 18px; }
+h1 { margin: 0 0 6px; font-size: 18px; }
+h1 > span:first-child { color: #7356c8; }
+.intro { margin: 0 0 16px; color: #5f6368; }
+section { padding: 13px 0; border-top: 1px solid #e4e6e9; }
+h2 { margin: 0 0 9px; font-size: 14px; }
+.choice, .switch-row { display: flex; align-items: center; gap: 7px; margin: 7px 0; }
+.choice small { color: #5f6368; }
+select, textarea { box-sizing: border-box; width: 100%; margin-top: 7px; padding: 9px; border: 1px solid #dadce0; border-radius: 8px; background: #fff; color: #202124; font: inherit; }
+textarea { resize: vertical; }
+select:disabled, textarea:disabled { opacity: .55; }
+.hint { display: block; margin-top: 6px; color: #5f6368; }
+.warning { margin: 6px 0 0; color: #b06000; font-size: 12px; }
+.footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #e4e6e9; }
+#status { color: #188038; font-size: 12px; }
+#save { padding: 8px 18px; border: 0; border-radius: 999px; color: #fff; background: #1a73e8; font-weight: 600; cursor: pointer; }
+#save:hover { background: #185abc; }
+@media (prefers-color-scheme: dark) {
+  body { background: #202124; color: #e8eaed; }
+  .intro, .choice small, .hint { color: #bdc1c6; }
+  section, .footer { border-color: #4a4c50; }
+  select, textarea { border-color: #5f6368; background: #292a2d; color: #e8eaed; }
+  .warning { color: #fdd663; }
+}

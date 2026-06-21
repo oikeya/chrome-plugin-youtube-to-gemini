@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YouTube to Gemini</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main>
+      <h1><span aria-hidden="true">✦</span> <span data-i18n="extensionName"></span></h1>
+      <p class="intro" data-i18n="popupDescription"></p>
+
+      <section>
+        <h2 data-i18n="summaryLanguage"></h2>
+        <label class="choice">
+          <input type="radio" name="languageMode" value="browser">
+          <span data-i18n="followBrowser"></span>
+          <small id="detected-language"></small>
+        </label>
+        <label class="choice">
+          <input type="radio" name="languageMode" value="manual">
+          <span data-i18n="chooseLanguage"></span>
+        </label>
+        <select id="target-language" aria-label="Summary language"></select>
+      </section>
+
+      <section>
+        <h2 data-i18n="promptHeading"></h2>
+        <label class="choice">
+          <input type="radio" name="promptMode" value="default">
+          <span data-i18n="standardPrompt"></span>
+        </label>
+        <label class="choice">
+          <input type="radio" name="promptMode" value="custom">
+          <span data-i18n="customPrompt"></span>
+        </label>
+        <textarea id="custom-prompt" rows="6"></textarea>
+        <small class="hint" data-i18n="promptHint"></small>
+      </section>
+
+      <section>
+        <h2 data-i18n="sendingHeading"></h2>
+        <label class="switch-row">
+          <input id="auto-submit" type="checkbox">
+          <span data-i18n="autoSubmit"></span>
+        </label>
+        <p class="warning" data-i18n="autoSubmitWarning"></p>
+      </section>
+
+      <div class="footer">
+        <span id="status" role="status"></span>
+        <button id="save" type="button" data-i18n="save"></button>
+      </div>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

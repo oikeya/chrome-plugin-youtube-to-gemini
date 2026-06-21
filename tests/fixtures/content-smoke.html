@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8">
+    <title>content.js smoke test</title>
+    <script>
+      window.testState = {};
+      window.chrome = {
+        i18n: { getUILanguage: () => "en-US" },
+        storage: {
+          sync: {
+            get: async () => ({
+              languageMode: "manual",
+              targetLanguage: "ja",
+              promptMode: "custom",
+              customPrompt: "{title}\n{url}\n{language}",
+              autoSubmit: true
+            })
+          },
+          local: {
+            set: (value) => { window.testState.stored = value; }
+          },
+          onChanged: { addListener: () => {} }
+        }
+      };
+      Object.defineProperty(navigator, "clipboard", {
+        configurable: true,
+        value: {
+          writeText: async (value) => { window.testState.clipboard = value; }
+        }
+      });
+      window.open = (url, target, features) => {
+        window.testState.opened = { url, target, features };
+      };
+    </script>
+  </head>
+  <body>
+    <ytd-rich-item-renderer>
+      <ytd-thumbnail>
+        <a id="thumbnail" href="https://www.youtube.com/watch?v=video_123&t=42s"></a>
+      </ytd-thumbnail>
+      <a id="video-title" title="Smoke test video"></a>
+    </ytd-rich-item-renderer>
+    <div id="test-result">WAIT</div>
+    <pre id="test-error"></pre>
+    <script src="../../content.js"></script>
+    <script>
+      setTimeout(() => {
+        try {
+          const button = document.querySelector(".yt-to-gemini-button");
+          if (!button) throw new Error("Summary button was not injected");
+          if (button.querySelector("span").textContent !== "摘要") {
+            throw new Error("Traditional Chinese button label was not selected");
+          }
+
+          button.click();
+          const entries = Object.entries(window.testState.stored || {});
+          if (entries.length !== 1) throw new Error("Request was not stored");
+          const [storageKey, request] = entries[0];
+          if (!storageKey.startsWith("geminiRequest:")) {
+            throw new Error("Unexpected storage key");
+          }
+          const expectedPrompt = [
+            "Smoke test video",
+            "https://www.youtube.com/watch?v=video_123",
+            "Japanese"
+          ].join("\n");
+          if (request.prompt !== expectedPrompt) throw new Error("Prompt does not match settings");
+          if (request.autoSubmit !== true) throw new Error("autoSubmit was not passed");
+          if (window.testState.clipboard !== expectedPrompt) {
+            throw new Error("Prompt was not copied to clipboard");
+          }
+          if (!window.testState.opened?.url.includes("yt2gemini=")) {
+            throw new Error("Gemini request URL was not opened");
+          }
+          if (window.testState.opened.target !== "_blank") {
+            throw new Error("Gemini did not open in a new tab");
+          }
+          document.querySelector("#test-result").textContent = "PASS";
+        } catch (error) {
+          document.querySelector("#test-result").textContent = "FAIL";
+          document.querySelector("#test-error").textContent = error.stack || error.message;
+        }
+      }, 100);
+    </script>
+  </body>
+</html>

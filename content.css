@@ -1,0 +1,69 @@
+.yt-to-gemini-thumbnail {
+  position: relative !important;
+}
+
+.yt-to-gemini-button {
+  position: absolute;
+  z-index: 30;
+  right: 6px;
+  bottom: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 5px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(15, 15, 15, 0.86);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font: 600 12px/1.2 Roboto, Arial, sans-serif;
+  cursor: pointer;
+  /* プレビュー開始後はthumbnail自体が:hoverでなくなるため、常時表示する。 */
+  opacity: 0.88;
+  transform: translateY(0);
+  transition: opacity 120ms ease, transform 120ms ease, background 120ms ease;
+}
+
+.yt-to-gemini-button:hover,
+.yt-to-gemini-button:focus-visible {
+  opacity: 1;
+}
+
+.yt-to-gemini-button:hover {
+  background: linear-gradient(110deg, rgba(30, 90, 210, 0.96), rgba(130, 65, 190, 0.96));
+}
+
+.yt-to-gemini-button:focus-visible {
+  outline: 2px solid #a8c7fa;
+  outline-offset: 2px;
+}
+
+.yt-to-gemini-button svg {
+  width: 16px;
+  height: 16px;
+  fill: #a8c7fa;
+}
+
+.yt-to-gemini-button:hover svg {
+  fill: #fff;
+}
+
+.yt-to-gemini-button.is-loading {
+  cursor: wait;
+}
+
+.yt-to-gemini-button.is-sent {
+  opacity: 1;
+  transform: translateY(0);
+  background: rgba(24, 128, 56, 0.94);
+}
+
+@media (hover: none) {
+  .yt-to-gemini-button {
+    opacity: 1;
+    transform: none;
+  }
+}

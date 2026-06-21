@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>gemini.js smoke test</title>
+    <style>
+      textarea, button { display: block; width: 200px; height: 40px; }
+    </style>
+    <script>
+      window.testState = { removed: [], sendClicks: 0 };
+      window.chrome = {
+        i18n: { getMessage: (key) => key },
+        storage: {
+          local: {
+            get: async (key) => ({
+              [key]: {
+                prompt: "Summarize this video in Japanese",
+                autoSubmit: true,
+                createdAt: Date.now()
+              }
+            }),
+            remove: async (key) => { window.testState.removed.push(key); }
+          }
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <textarea aria-label="Prompt"></textarea>
+    <button aria-label="Send message">Send</button>
+    <div id="test-result">WAIT</div>
+    <pre id="test-error"></pre>
+    <script>
+      document.querySelector('button[aria-label="Send message"]').addEventListener("click", () => {
+        window.testState.sendClicks += 1;
+      });
+    </script>
+    <script src="../../gemini.js"></script>
+    <script>
+      setTimeout(() => {
+        try {
+          const prompt = document.querySelector("textarea").value;
+          if (prompt !== "Summarize this video in Japanese") {
+            throw new Error("Prompt was not inserted into Gemini editor");
+          }
+          if (window.testState.sendClicks !== 1) {
+            throw new Error("Send button was not clicked exactly once");
+          }
+          if (!window.testState.removed.includes("geminiRequest:smoke-request")) {
+            throw new Error("Processed request was not removed from storage");
+          }
+          if (new URL(location.href).searchParams.has("yt2gemini")) {
+            throw new Error("Request ID remained in the URL");
+          }
+          document.querySelector("#test-result").textContent = "PASS";
+        } catch (error) {
+          document.querySelector("#test-result").textContent = "FAIL";
+          document.querySelector("#test-error").textContent = error.stack || error.message;
+        }
+      }, 200);
+    </script>
+  </body>
+</html>
