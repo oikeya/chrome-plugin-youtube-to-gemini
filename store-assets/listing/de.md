@@ -10,7 +10,7 @@ YouTube-Videos zur Zusammenfassung an Gemini senden.
 
 ## Kategorie
 
-Produktivität
+Produktivität → Workflow und Planung
 
 ## Ausführliche Beschreibung
 

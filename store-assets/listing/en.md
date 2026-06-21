@@ -10,7 +10,7 @@ Send YouTube videos to Gemini for summarization.
 
 ## Category
 
-Productivity
+Productivity → Workflow & Planning
 
 ## Detailed description
 

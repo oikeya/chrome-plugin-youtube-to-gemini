@@ -10,7 +10,7 @@ Envía vídeos de YouTube a Gemini para resumirlos.
 
 ## Categoría
 
-Productividad
+Productividad → Flujo de trabajo y planificación
 
 ## Descripción detallada
 

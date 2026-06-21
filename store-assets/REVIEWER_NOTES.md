@@ -44,7 +44,7 @@ Conservatively disclose the following categories in the dashboard because Chrome
 
 - Web history: the URL of the single video explicitly selected by the user.
 - Website content: the public title of that selected video.
-- User-provided content: the custom prompt and preferences entered in the popup.
+- Personal communications: the custom prompt text entered by the user and inserted into Gemini. Summary-language and automatic-send preferences are stored as settings but are not used for analytics or profiling.
 
 The developer receives none of this data. It is processed locally and the selected title, URL, and prompt are disclosed directly to Google Gemini solely for the extension's stated user-facing feature. There is no analytics, advertising, sale, credit use, or human review by the developer.
 

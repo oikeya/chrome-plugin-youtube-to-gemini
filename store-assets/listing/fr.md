@@ -10,7 +10,7 @@ Envoyez des vidéos YouTube à Gemini pour les résumer.
 
 ## Catégorie
 
-Productivité
+Productivité → Workflow et planification
 
 ## Description détaillée
 
